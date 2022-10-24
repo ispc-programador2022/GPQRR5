@@ -2,10 +2,10 @@
 En este proyecto realizaremos un web scraper para cada una de las páginas web mencionadas y luego realizaremos una comparativa de precios.
 
 ## Recomendaciones
-Recomiendo utilizar pipenv para manejar el entorno virtual en el cual estaremos trabajando.
+Recomiendo utilizar [pipenv](https://pipenv.pypa.io/en/latest/) para manejar el entorno virtual en el cual estaremos trabajando.
 
 ## Instalación y configuración del entorno virtual
-Primero necesitamos instalar pipenv, en caso de tenerlo ya instalado se puede omitir este paso.
+Primero necesitamos instalar [pipenv](https://pipenv.pypa.io/en/latest/), en caso de tenerlo ya instalado se puede omitir este paso.
 ```python
 pip install pipenv
 ```
@@ -19,10 +19,11 @@ Una vez instalada la herramienta con la que controlaremos nuestro entorno virtua
 # Iniciamos el entorno virtual
 $ pipenv shell
 # Instalamos las dependencias necesarias ** ESTE PASO NO DEBE SER REALIZADO YA QUE LAS DEPENDENCIAS NECESARIAS YA ESTAN INSTALADAS **
-$ pipenv install beautifulsoup4
-$ pipenv install requests
+web_scraper[main]$ pipenv install beautifulsoup4
+web_scraper[main]$ pipenv install requests
 # Para desactivar el entorno virtual utilizaremos 
 $ deactivate
+
 ```
 
 ### Integrantes:
