@@ -18,14 +18,13 @@ Una vez instalada la herramienta con la que controlaremos nuestro entorno virtua
 ```bash
 # Iniciamos el entorno virtual
 $ pipenv shell
-# Instalamos las dependencias necesarias ** ESTE PASO NO DEBE SER REALIZADO YA QUE LAS DEPENDENCIAS NECESARIAS YA ESTAN INSTALADAS **
-web_scraper[main]$ pipenv install beautifulsoup4
-web_scraper[main]$ pipenv install requests
+# Instalamos las dependencias necesarias
+$ pipenv install -r requirements.txt
 # Para desactivar el entorno virtual utilizaremos 
 $ deactivate
 
 ```
-
+El proceso puede demorar, cuando termine de ejecutar ya tendremos todas las dependencias necesarias para trabajar con el proyecto instaladas
 ### Integrantes:
     -Agustin Piccoli
     -Lina Mikaela Gutierrez Arribas
