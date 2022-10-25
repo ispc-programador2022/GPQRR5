@@ -6,6 +6,9 @@ name = "pypi"
 [packages]
 bs4 = "*"
 requests = "*"
+django = "*"
+mysql-client = "*"
+pymysql = "*"
 
 [dev-packages]
 
