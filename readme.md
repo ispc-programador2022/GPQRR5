@@ -20,11 +20,23 @@ Una vez instalada la herramienta con la que controlaremos nuestro entorno virtua
 $ pipenv shell
 # Instalamos las dependencias necesarias
 $ pipenv install -r requirements.txt
-# Para desactivar el entorno virtual utilizaremos 
-$ deactivate
 
 ```
-El proceso puede demorar, cuando termine de ejecutar ya tendremos todas las dependencias necesarias para trabajar con el proyecto instaladas
+Veremos que nos ha generado uno o dos archivos, llamados 'Pipfile' y 'Pipfile.lock' no debemos hacer nada con dichos archivos. *tampoco debemos pushearlos al repositorio*.
+El proceso puede demorar, cuando termine de ejecutar ya tendremos todas las dependencias necesarias para trabajar con el proyecto instaladas.
+## Base de datos
+Por el momento la base de datos la tendremos solo de forma local, hasta que configuremos el acceso remoto, por ende sientanse libres de cambiar las configuraciones pertinentes para hacerlo funcionar en su entorno de trabajo, importante que utilicen mysql como motor.
+Recordar que luego de cada cambio a la base de datos se necesita ejecutar el comando
+```bash
+$ python3 manage.py migrate
+```
+## Contenido del repo
+Tenemos varias carpetas dentro del repositorio, las que tienen el nombre de diferentes paginas web, son las que utilizaremos para albergar los respectivos scrapers, en cambio la carpeta de nombre *scraper* es desde la cual configuraremos y controlaremos nuestra aplicación web creada con [Django](https://docs.djangoproject.com/en/4.1/) de momento lo unico que haremos sera cambiar el archivo 'settings.py' para configurar la base de datos en caso de creerlo pertinente.
+## Uso
+Se puede ejecutar el servidor local con el comando
+```bash
+python manage.py runserver 
+```
 ### Integrantes:
     -Agustin Piccoli
     -Lina Mikaela Gutierrez Arribas
