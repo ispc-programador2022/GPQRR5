@@ -35,7 +35,7 @@ $ python3 manage.py migrate
 ```
 Siendo este el metodo para verificar que todas las configuraciones se hayan realizado correctamente.
 ## Contenido del repo
-Tenemos varias carpetas dentro del repositorio, las que tienen el nombre de diferentes paginas web, son las que utilizaremos para albergar los respectivos scrapers, en cambio la carpeta de nombre *scraper* es desde la cual configuraremos y controlaremos nuestra aplicación web creada con [Django](https://docs.djangoproject.com/en/4.1/) de momento lo unico que haremos sera cambiar el archivo 'settings.py' para configurar la base de datos en caso de necesitarlo.
+Tenemos varias carpetas dentro del repositorio, las que tienen el nombre de diferentes paginas web, son las que utilizaremos para albergar los respectivos scrapers, en cambio la carpeta de nombre **scraper** es desde la cual configuraremos y controlaremos nuestra aplicación web creada con [Django](https://docs.djangoproject.com/en/4.1/) de momento lo unico que haremos sera cambiar el archivo 'settings.py' para configurar la base de datos en caso de necesitarlo.
 ## Uso
 Se puede ejecutar el servidor local con el comando
 ```bash
