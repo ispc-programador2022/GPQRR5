@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'gestionScrapers',
 ]
 
 MIDDLEWARE = [
@@ -78,7 +79,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'scraper_database',
         'USER': 'root',
-        'PASSWORD': 'password',
+        'PASSWORD': 'Password',
         'HOST': 'localhost',
         'PORT': ''
     }
