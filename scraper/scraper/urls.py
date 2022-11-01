@@ -15,7 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from gestionScrapers.views import search, searchProducts
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('busqueda_productos/', searchProducts),
+    path('buscar/',search),
 ]
