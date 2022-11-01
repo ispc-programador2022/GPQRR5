@@ -79,7 +79,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'scraper_database',
         'USER': 'root',
-        'PASSWORD': 'Password',
+        'PASSWORD': 'password',
         'HOST': 'localhost',
         'PORT': ''
     }

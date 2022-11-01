@@ -1,5 +1,8 @@
 import sys
-sys.path.insert(1, 'C:/Users/mikae/Desktop/PROYECTOS/Python/ISPC-proyecto-integrador/scraper')
+# Este path debe ser reemplazado por el respectivo de cada pc particular
+sys.path.insert(1, '/home/agustin/Desktop/Proyectos_linux/ispc/web_scraper/scraper')
+import django
+django.setup()
 from gestionScrapers.models import Venex
 from bs4 import BeautifulSoup
 import requests
@@ -23,7 +26,7 @@ def searcherVenex(busqueda: str):
                 product.a['onclick'].split('(')[1].replace(')', ''))
             productDB = Venex(name=product['name'], category=product['category'],
                               brand=product['brand'], price=int(product['price']))
+            productDB.save()
         _temp += 1
-    productDB.save()
 
-lala = searcherVenex('placa de video')
+searcherVenex('placa de video')
