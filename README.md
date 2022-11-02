@@ -28,9 +28,10 @@ En caso de necesitar desactivar el entorno virtual, se puede hacer con el comand
 $ deactivate
 ```
 ## Base de datos
-Por el momento la base de datos la tendremos solo de forma local, hasta que configuremos el acceso remoto, por ende sientanse libres de cambiar las configuraciones pertinentes para hacerlo funcionar en su entorno de trabajo, importante que utilicen mysql como motor.
-Recordar que luego de cada cambio a la base de datos se necesita ejecutar el comando
+Por el momento la base de datos la tendremos solo de forma local, hasta que configuremos el acceso remoto, por ende sientanse libres de cambiar las configuraciones pertinentes para hacerlo funcionar en su entorno de trabajo, importante que utilicen **MYSQL** como motor.
+Recordar que luego de cada cambio a la base de datos se necesita ejecutar el comando:
 ```bash
+$ python3 manage.py makemigrations
 $ python3 manage.py migrate
 ```
 Siendo este el metodo para verificar que todas las configuraciones se hayan realizado correctamente.
@@ -50,6 +51,12 @@ Starting development server at http://127.0.0.1:8000/
 Quit the server with CONTROL-C.
 ```
 En caso de que todo haya salido bien deberia mostrarnos ese output.
+## Venex scraper
+Dentro de la carpeta llamada *venex* tenemos un archivo que se llama *scraper_venex.py* para configurar el mismo necesitamos agregar el path al repositorio en la tercera linea, cada quien tendra un directorio diferente, es importante en windows que se reemplacen las barras invertidas por barras comunas (\ --> /) ya que es el caracter con el que se escapan caracteres en python y lo interpretará de forma erronea esta configuración será removida mas tarde cuando unifiquemos todo dentro de la carpeta '*scraper*' con un solo archivo conteniendo las diferentes funciones para todos los scrapers. El resto del script esta compuesto por una función que recibe como parametro un string el cual realiza una busqueda de todos los productos que tengan stock con ese nombre y los guarda en la base de datos, se puede revisar que los mismos se guarden correctamente desde el [Panel de administración](http://127.0.0.1:8000/admin) para ello seguramente tengan que crear un superuser, esto se hace con el comando:
+```bash
+$ python3 manage.py createsuperuser
+``` 
+Se debe proporcionar un usuario un correo y una contraseña lo suficientemente fuerte, para posteriormente logearse en el ya mencionado [Panel de administración](http://127.0.0.1:8000/admin).
 ### Integrantes:
     -Agustin Piccoli
     -Lina Mikaela Gutierrez Arribas
