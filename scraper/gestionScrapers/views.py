@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from gestionScrapers.models import Venex
+from gestionScrapers.models import Product
 from django.http import HttpResponse
 
 
@@ -15,9 +15,8 @@ def search(request):
         if len(producto) > 30:
             mensaje = 'Texto demasiado largo'
         else:
-            articulos = Venex.objects.filter(name__icontains=producto)
+            articulos = Product.objects.filter(name__icontains=producto)
             return render(request,'resultSearch.html',{'articulos':articulos,'query':producto})
     else:
         mensaje = 'No has introducido nada'
     return HttpResponse(mensaje)
-
