@@ -69,5 +69,5 @@ Se debe proporcionar un usuario un correo y una contraseña lo suficientemente f
     -Agustin Piccoli
     -Lina Mikaela Gutierrez Arribas
     -Lourdes Reynaldo
-    -Horacio Quiroga
+    -Horacio Eduardo Quiroga
     -Ignacio Rocha
