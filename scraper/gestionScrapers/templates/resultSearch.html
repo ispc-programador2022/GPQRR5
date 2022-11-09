@@ -5,20 +5,35 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resultados busqueda</title>
+    {% block style %}
+    {% endblock %}
 </head>
 <body>
     
     <p>Estas buscando: <strong>{{query}}</strong></p>
-
     {%if articulos%}
         <p>Articulos encontrados: {{articulos|length}} articulos</p>
-        <ul>
+        <table>
+            <tr>
+                <td>Pagina</td>
+                <td>Articulo</td>
+                <td>Marca</td>
+                <td>Precio</td>
+                <td>Link</td>
+            </tr>
             {%for articulo in articulos%}
-                <li>
-                    {{articulo.name}} &nbsp; {{articulo.category}} &nbsp; {{articulo.brand}} &nbsp; ${{articulo.price}}
-                </li>
+            <tr>
+                <td>{{articulo.page}}</td>
+                <td>{{articulo.title}}</td>
+                <td>{{articulo.brand}}</td>
+                <td>${{articulo.price}}</td>
+                <td><a target="_blank" href={{articulo.link}}>
+                    <button> Ir </button>
+                    </a>
+                </td>
+            </tr>
             {%endfor%}
-        </ul>
+        </table>
     {%else%}
            <p>Articulo no encontrado</p>
     {%endif%}
