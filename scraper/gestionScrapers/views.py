@@ -7,13 +7,22 @@ def searchProducts(request):
     try:
         if request.GET['prd']:
             producto = request.GET['prd']
+            select = request.GET['select']
+            #price = request.GET['price_toogle']
             if len(producto) > 30:
                 return render(request, "Texto demasiado largo")
             else:
-                articulos = Product.objects.filter()
-                for prod in producto.split(' '):
-                    articulos = articulos.filter(title__icontains=prod)
+                articulos = Product.objects.all()
+                if select == 'page':
+                    articulos = articulos.filter(page__icontains=producto)
+                elif select == 'title':
+                    for prod in producto.split(' '):
+                        articulos = articulos.filter(title__icontains=prod)
+                elif select == 'brand':
+                    articulos = articulos.filter(brand__icontains=producto)
                 return render(request, 'resultSearch.html', {'articulos': articulos, 'query': producto})
+        else:
+            return render(request, '404.html')
     except:
         return render(request, "resultSearch.html", {'primera_busqueda': True})
 
