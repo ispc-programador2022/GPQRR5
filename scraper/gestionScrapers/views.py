@@ -15,7 +15,7 @@ def searchProducts(request):
                     articulos = articulos.filter(title__icontains=prod)
                 return render(request, 'resultSearch.html', {'articulos': articulos, 'query': producto})
     except:
-        return render(request, "resultSearch.html")
+        return render(request, "resultSearch.html", {'primera_busqueda': True})
 
 
 def pruebas_script(request):

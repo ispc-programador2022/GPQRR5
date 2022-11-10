@@ -1,7 +1,7 @@
 {% extends "searchProducts.html" %}
 {% block content %}
-<h2 class="text-light">Estas buscando: <strong>{{query}}</strong></h2>
 {%if articulos%}
+<h2 class="text-light">Estas buscando: <strong>{{query}}</strong></h2>
 <h4 class="text-light">Articulos encontrados: {{articulos|length}} articulos</h4>
 <table class="table table-primary table-striped">
     <thead>
@@ -30,7 +30,12 @@
     {%endfor%}
 </table>
 {%else%}
-<p>Articulo no encontrado</p>
+    {%if primera_busqueda %}
+    <h4 class="text-light">Realiza tu primera busqueda</h4>
+    {%else%}
+    <h2 class="text-light">Estas buscando: <strong>{{query}}</strong></h2>
+    <h4 class="text-light">No se encontraron articulos</h4>
+    {%endif%}
 {%endif%}
 
 {% endblock %}
