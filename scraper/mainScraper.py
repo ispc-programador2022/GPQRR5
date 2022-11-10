@@ -22,33 +22,40 @@ def searcherVenex(busqueda: str):
             if 'item item-no-stock' in str(prod):
                 _search = False
                 break
+            _link = prod.a['href']
             prod = json.loads(
                 prod.a['onclick'].split('(')[1].replace(')', ''))
             productDB = Product(
-                            name=prod['name'].lower(), 
-                            price=int(prod['price']))
-            if Product.objects.filter(name__contains=productDB.name).exists():
+                            page = 'Venex',
+                            title=prod['name'].lower(), 
+                            price=int(prod['price']),
+                            brand=prod['brand'],
+                            link=_link
+                            )
+            if Product.objects.filter(title__contains=productDB.title).exists():
                 _search=False
             else:
                 productDB.save()
         _temp += 1
 
 def searcherFullHard(busqueda: str):
-    print('Cargando..')
+    print('Cargando resultados de Full Hard..')
     soup = soup_def(f'https://www.fullh4rd.com.ar/cat/search/{busqueda.replace(" ", "%20")}')
     products = soup.findAll('div', class_='item product-list')
     for prod in products:
         productDB = Product(
-                        name=prod.find('h3').get_text().lower(), 
-                        price=int(prod.find('div',class_='price').get_text().strip().split(' ')[0].replace('$','').replace('.','').split(',')[0]))
-        if Product.objects.filter(name__contains=productDB.name).exists():
+                        page = 'Full Hard',
+                        title=prod.find('h3').get_text().lower(), 
+                        price=int(prod.find('div',class_='price').get_text().strip().split(' ')[0].replace('$','').replace('.','').split(',')[0]),
+                        link = f"https://www.fullh4rd.com.ar{prod.a['href']}")
+        if Product.objects.filter(title__contains=productDB.title).exists():
             break
         else:
             productDB.save()
 
 
 def searcherCompGamer(busqueda: str):
-    print('Cargando..')
+    print('Cargando resultados de compraGamer..')
     dicc_categorias = {
         'microprocesador': 27,
         'placa de video': 62,
@@ -58,18 +65,20 @@ def searcherCompGamer(busqueda: str):
 
     soup = soup_def(f'https://compragamer.com/?gclid=&seccion=3&cate={dicc_categorias.get(busqueda)}&listado_prod=')
     products = soup.findAll('div', class_='contenidoPrincipal')
+    print(products)
     for prod in products:
         productDB = Product(
-                        name=prod.find('span', class_='_ngcontent-rhy-c234').get_text().lower(), 
+                        page = 'Compra Gamer',
+                        title=prod.find('span', class_='_ngcontent-rhy-c234').get_text().lower(), 
                         price=int(prod.find('span',class_='theme_precio ng-star-inserted').get_text().strip().split(' ')[0].replace('$','').replace('.','').split(',')[0]))
-        if Product.objects.filter(name__contains=productDB.name).exists():
+        if Product.objects.filter(title__contains=productDB.title).exists():
             break
         else:
             productDB.save()
 
 
 def searcherMeli(busqueda: str):
-    print('Cargando..')
+    print('Cargando  resultados de Mercado Libre..')
 
     busq = 'placa-de-video' if busqueda =='placa de video' else busqueda
     srch = f'placa%20de%20video' if busqueda =='placa de video' else busqueda
@@ -77,20 +86,19 @@ def searcherMeli(busqueda: str):
 
     products = soup.findAll('div', class_='ui-search-result__content-wrapper shops__result-content-wrapper')
     for prod in products:
-        prod = Product(
-                        name=prod.find('h2', class_='ui-search-item__title shops__item-title').get_text().lower(), 
+        productDB = Product(
+                        title=prod.find('h2', class_='ui-search-item__title shops__item-title').get_text().lower(), 
                         price=int(prod.find('span',class_='price-tag-text-sr-only').get_text().split(' ')[0].replace('pesos','').replace('.','').split(',')[0]))
-        if Product.objects.filter(name__contains=productDB.name).exists():
+        if Product.objects.filter(title__contains=productDB.title).exists():
             break
         else:
             productDB.save()
 
-
 if __name__ == '__main__':
     items = ['microprocesador','placa de video','notebook','teclado']
     for item in items:
-        searcherVenex(item)
         searcherFullHard(item)
-        searcherCompGamer(item)
-        searcherMeli(item)
+        searcherVenex(item)
+        #searcherCompGamer(item)
+        #searcherMeli(item)
         
