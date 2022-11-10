@@ -1,42 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resultados busqueda</title>
-    {% block style %}
-    {% endblock %}
-</head>
-<body>
-    
-    <p>Estas buscando: <strong>{{query}}</strong></p>
-    {%if articulos%}
-        <p>Articulos encontrados: {{articulos|length}} articulos</p>
-        <table>
-            <tr>
-                <td>Pagina</td>
-                <td>Articulo</td>
-                <td>Marca</td>
-                <td>Precio</td>
-                <td>Link</td>
-            </tr>
-            {%for articulo in articulos%}
-            <tr>
-                <td>{{articulo.page}}</td>
-                <td>{{articulo.title}}</td>
-                <td>{{articulo.brand}}</td>
-                <td>${{articulo.price}}</td>
-                <td><a target="_blank" href={{articulo.link}}>
-                    <button> Ir </button>
-                    </a>
-                </td>
-            </tr>
-            {%endfor%}
-        </table>
-    {%else%}
-           <p>Articulo no encontrado</p>
-    {%endif%}
+{% extends "searchProducts.html" %}
+{% block content %}
+<h2 class="text-light">Estas buscando: <strong>{{query}}</strong></h2>
+{%if articulos%}
+<h4 class="text-light">Articulos encontrados: {{articulos|length}} articulos</h4>
+<table class="table table-primary table-striped">
+    <thead>
+        <tr>
+            <th>Pagina</th>
+            <th>Articulo</th>
+            <th>Marca</th>
+            <th>Precio</th>
+            <th>Link</th>
+        </tr>
+    </thead>
+    {%for articulo in articulos%}
+    <tbody>
+        <tr>
+            <td>{{articulo.page}}</td>
+            <td>{{articulo.title}}</td>
+            <td>{{articulo.brand}}</td>
+            <td>${{articulo.price}}</td>
+            <td>
+                <a target="_blank" href={{articulo.link}}>
+                    <button class="bg-dark text-info px-4 rounded"> Ir </button>
+                </a>
+            </td>
+        </tr>
+    </tbody>
+    {%endfor%}
+</table>
+{%else%}
+<p>Articulo no encontrado</p>
+{%endif%}
 
-</body>
-</html>
+{% endblock %}

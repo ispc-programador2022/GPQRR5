@@ -39,7 +39,7 @@ def searcherVenex(busqueda: str):
         _temp += 1
 
 def searcherFullHard(busqueda: str):
-    print('Cargando..')
+    print('Cargando resultados de Full Hard..')
     soup = soup_def(f'https://www.fullh4rd.com.ar/cat/search/{busqueda.replace(" ", "%20")}')
     products = soup.findAll('div', class_='item product-list')
     for prod in products:
@@ -55,7 +55,7 @@ def searcherFullHard(busqueda: str):
 
 
 def searcherCompGamer(busqueda: str):
-    print('Cargando..')
+    print('Cargando resultados de compraGamer..')
     dicc_categorias = {
         'microprocesador': 27,
         'placa de video': 62,
@@ -65,8 +65,10 @@ def searcherCompGamer(busqueda: str):
 
     soup = soup_def(f'https://compragamer.com/?gclid=&seccion=3&cate={dicc_categorias.get(busqueda)}&listado_prod=')
     products = soup.findAll('div', class_='contenidoPrincipal')
+    print(products)
     for prod in products:
         productDB = Product(
+                        page = 'Compra Gamer',
                         title=prod.find('span', class_='_ngcontent-rhy-c234').get_text().lower(), 
                         price=int(prod.find('span',class_='theme_precio ng-star-inserted').get_text().strip().split(' ')[0].replace('$','').replace('.','').split(',')[0]))
         if Product.objects.filter(title__contains=productDB.title).exists():
@@ -76,7 +78,7 @@ def searcherCompGamer(busqueda: str):
 
 
 def searcherMeli(busqueda: str):
-    print('Cargando..')
+    print('Cargando  resultados de Mercado Libre..')
 
     busq = 'placa-de-video' if busqueda =='placa de video' else busqueda
     srch = f'placa%20de%20video' if busqueda =='placa de video' else busqueda
@@ -92,12 +94,11 @@ def searcherMeli(busqueda: str):
         else:
             productDB.save()
 
-
 if __name__ == '__main__':
     items = ['microprocesador','placa de video','notebook','teclado']
     for item in items:
         searcherFullHard(item)
         searcherVenex(item)
-        searcherCompGamer(item)
-        searcherMeli(item)
+        #searcherCompGamer(item)
+        #searcherMeli(item)
         
