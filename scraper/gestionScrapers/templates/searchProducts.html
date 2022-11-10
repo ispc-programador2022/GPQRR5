@@ -15,18 +15,33 @@
 <body class="d-block align-items-center justify-content-center bg-dark w-100 h-100 p-5">
     <h1 class="text-info d-flex justify-content-center p-1">Busca el producto que quieras comparar</h1>
     <form action="/busqueda_productos/" method="get" class="bg-secondary my-3 p-4 w-100 d-flex align-items-center justify-content-center">
-        <input type="text" name="prd" class="p-2 w-50 h-25 border border-info border-opacity-50 rounded">
-        <div  class="d-flex px-4 mx-4 rounded" style="width: 30%;">
-        <input type="submit" name="btn" value="Buscar" class="bg-dark text-info px-4 mx-4 my-2 rounded">
-        <div class="form-floating d-block w-50">
-            <select name="select" class="form-select" class="bg-dark text-info px-4 mx-2 rounded">
+        <input type="text" name="prd" placeholder="Articulo..." style="width: 40%;" class="p-3 h-25 border border-primary border-opacity-50 rounded">
+        <div  class="d-flex px-2 mx-2 align-items-center justify-content-between rounded" style="width: 40%;">
+        <input type="submit" name="btn" value="Buscar" class="bg-dark text-primary p-2 m-3 rounded">
+        <div class="form-floating w-50 d-flex">
+            <select name="select" class="form-select" class=" bg-dark text-primary px-4 mx-2 rounded">
                 <option value="page">Pagina</option>
-                <option value="title">Articulo</option>
+                <option value="title" selected>Articulo</option>
                 <option value="brand">Marca</option>
             </select>
             <label>Busca por:</label>
         </div>
+        <div class='p-1 m-1 text-center'>
+            <label class='fw-bolder'>PRECIO:</label>
+            <div class="form-check d-block">
+                <input class="form-check-input" type="radio" name="pricer" value="asc" checked>
+                <label class="form-check-label">
+                Ascendente
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="pricer" value="desc">
+                <label class="form-check-label">
+                Descendente
+                </label>
+            </div>
         </div>
+    </div>
     </form>
     {% block content %}
     {% endblock %}

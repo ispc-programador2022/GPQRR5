@@ -1,7 +1,16 @@
 {% extends "searchProducts.html" %}
 {% block content %}
 {%if articulos%}
-<h2 class="text-light">Estas buscando: <strong>{{query}}</strong></h2>
+<div class="bg-light d-flex w-100 justify-content-between">
+    {%for key, value in paginas.items%}
+    <div class = "bg-primary m-2 p-2">
+        <h3 class = "text-center"><strong>{{key | capfirst}}</strong></h3>
+        <p>Precio Minimo: ${{value.rangos.1.price}}</p>
+        <p>Precio Maximo: ${{value.rangos.0.price}}</p>
+    </div>
+    {%endfor%}
+</div>
+<h2 class="text-light">Estas buscando: <strong>{{query | capfirst}}</strong></h2>
 <h4 class="text-light">Articulos encontrados: {{articulos|length}} articulos</h4>
 <table class="table table-primary table-striped">
     <thead>
@@ -9,16 +18,7 @@
             <th class="text-center">Pagina</th>
             <th>Articulo</th>
             <th class="text-center">Marca</th>
-            <th class="text-center">
-                <div class="d-flex w-100">
-                    <label class="form-check-label fs-6 w-50 text-center">$</label>
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" role="switch" name="price_toogle">
-                    </div>
-                    <label class="form-check-label fs-6 w-50 text-center">$$$</label>
-                </div>
-                Precio
-            </th>
+            <th class="text-center">Precio</th>
             <th class="text-center">Link</th>
         </tr>
     </thead>
@@ -31,7 +31,7 @@
             <td class="text-center">${{articulo.price}}</td>
             <td class="text-center">
                 <a target="_blank" href={{articulo.link}}>
-                    <button class="bg-dark text-info px-4 rounded"> Ir </button>
+                    <button class="bg-dark text-primary px-4 rounded"> Ir </button>
                 </a>
             </td>
         </tr>
