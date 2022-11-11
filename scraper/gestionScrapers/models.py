@@ -1,5 +1,3 @@
-from unicodedata import category
-from unittest.util import _MAX_LENGTH
 from django.db import models
 from django.utils import timezone
 

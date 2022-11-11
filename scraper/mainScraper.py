@@ -1,3 +1,5 @@
+import os
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'scraper.settings')
 import django
 django.setup()
 import json
@@ -18,6 +20,8 @@ def searcherVenex(busqueda: str):
         print('Buscando resultados >>>>>', _temp)
         soup = soup_def(f'https://www.venex.com.ar/resultado-busqueda.htm?keywords={busqueda.replace(" ", "%20")}&page={_temp}')
         products = soup.findAll('div', class_="item")
+        if products[0] == soup_def(f'https://www.venex.com.ar/resultado-busqueda.htm?keywords={busqueda.replace(" ", "%20")}&page={_temp-1}').findAll('div',class_='item')[0] and _temp != 1:
+            _search = False
         for prod in products:
             if 'item item-no-stock' in str(prod):
                 _search = False
@@ -32,8 +36,11 @@ def searcherVenex(busqueda: str):
                             brand=prod['brand'],
                             link=_link
                             )
-            if Product.objects.filter(title__contains=productDB.title).exists():
-                _search=False
+            if Product.objects.filter(title__contains = productDB.title).exists() and productDB.price == Product.objects.filter(title__contains=productDB.title)[0].price:
+                continue
+            elif Product.objects.filter(title__contains=productDB.title).exists() and productDB.price != Product.objects.filter(title__contains=productDB.title)[0].price:
+                update_id = Product.objects.filter(title__contains = productDB.title)[0].id
+                Product.objects.filter(pk = update_id).update(price = productDB.price)
             else:
                 productDB.save()
         _temp += 1
@@ -48,8 +55,11 @@ def searcherFullHard(busqueda: str):
                         title=prod.find('h3').get_text().lower(), 
                         price=int(prod.find('div',class_='price').get_text().strip().split(' ')[0].replace('$','').replace('.','').split(',')[0]),
                         link = f"https://www.fullh4rd.com.ar{prod.a['href']}")
-        if Product.objects.filter(title__contains=productDB.title).exists():
-            break
+        if Product.objects.filter(title__contains=productDB.title).exists() and productDB.price == Product.objects.filter(title__contains=productDB.title)[0].price:
+            continue
+        elif Product.objects.filter(title__contains=productDB.title).exists() and productDB.price != Product.objects.filter(title__contains=productDB.title)[0].price:
+            update_id = Product.objects.filter(title__contains = productDB.title)[0].id
+            Product.objects.filter(pk = update_id).update(price = productDB.price)
         else:
             productDB.save()
 

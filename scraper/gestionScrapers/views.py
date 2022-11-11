@@ -33,9 +33,13 @@ def searchProducts(request):
                     pages[page]['productos'].append(articulos.filter(page__icontains = page.replace('_',' ')))
 
                 for page in pages.keys():
-                    pages[page]['rangos'].append(pages[page]['productos'][0][0])
-                    pages[page]['rangos'].append(pages[page]['productos'][0].reverse()[0])
-                    
+                    if price == 'asc':
+                        pages[page]['rangos'].append(pages[page]['productos'][0][0])
+                        pages[page]['rangos'].append(pages[page]['productos'][0].reverse()[0])
+                    else:
+                        pages[page]['rangos'].append(pages[page]['productos'][0].reverse()[0])
+                        pages[page]['rangos'].append(pages[page]['productos'][0][0])
+
                 return render(request, 'resultSearch.html', {'articulos': articulos, 'query': producto,'paginas':pages})
         else:
             return render(request, '404.html')

@@ -3,11 +3,15 @@
 {%if articulos%}
 <div class="bg-light d-flex w-100 justify-content-between">
     {%for key, value in paginas.items%}
-    <div class = "bg-primary m-2 p-2">
-        <h3 class = "text-center"><strong>{{key | capfirst}}</strong></h3>
-        <p>Precio Minimo: ${{value.rangos.1.price}}</p>
-        <p>Precio Maximo: ${{value.rangos.0.price}}</p>
-    </div>
+        <div class = "bg-primary m-2 p-2">
+            <h3 class = "text-center"><strong>{{key | capfirst}}</strong></h3>
+            {%if value.rangos.1.price == value.rangos.0.price%}
+                <p>Precio unico: ${{value.rangos.0.price}}</p>
+            {%else%}
+                <p>Precio Minimo: ${{value.rangos.1.price}}</p>
+                <p>Precio Maximo: ${{value.rangos.0.price}}</p>
+            {%endif%}
+        </div>
     {%endfor%}
 </div>
 <h2 class="text-light">Estas buscando: <strong>{{query | capfirst}}</strong></h2>
@@ -27,7 +31,11 @@
         <tr>
             <td class="text-center">{{articulo.page}}</td>
             <td class="mx-2 bg-warning">{{articulo.title}}</td>
-            <td class="text-center">{{articulo.brand}}</td>
+            {%if articulo.brand == None%}
+                <td class="text-center">-</td>
+            {%else%}
+                <td class="text-center">{{articulo.brand}}</td>
+            {%endif%}
             <td class="text-center">${{articulo.price}}</td>
             <td class="text-center">
                 <a target="_blank" href={{articulo.link}}>
