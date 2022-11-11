@@ -14,5 +14,4 @@ df = {
     'Links':[producto.link for producto in productos]
     }
 df = pd.DataFrame(df)
-
 df.to_excel('data.xlsx')
