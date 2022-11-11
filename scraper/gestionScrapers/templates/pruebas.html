@@ -4,15 +4,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Busqueda de productos</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    {% bootstrap_messages %}
+    <title>Lanzador de scrapers</title>
 </head>
-<body>
+<body class="d-block align-items-center justify-content-center bg-dark w-100 h-100 p-5">
 
-    <form method="post">
+    <h1 class="text-info d-flex justify-content-center p-1">Busca el producto que quieras agregar</h1>
+    <form method="post" class="bg-secondary my-3 p-4 w-100 d-flex align-items-center justify-content-center">
         {% csrf_token %}
-        <input type="text" name="prd">
-        <button type="submit" name="run_script">Run script</button>
+        <input placeholder="Articulo..." type="text" name="prd" style="width: 40%;" class="p-3 h-25 border border-primary border-opacity-50 rounded">
+        <button type="submit" name="run_script" class="bg-dark text-primary p-2 m-3 rounded" >Run script</button>
     </form>
-    
+
 </body>
 </html>

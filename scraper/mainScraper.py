@@ -2,6 +2,7 @@ import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'scraper.settings')
 import django
 django.setup()
+from django.shortcuts import render
 import json
 import requests
 from bs4 import BeautifulSoup
@@ -20,8 +21,11 @@ def searcherVenex(busqueda: str):
         print('Buscando resultados >>>>>', _temp)
         soup = soup_def(f'https://www.venex.com.ar/resultado-busqueda.htm?keywords={busqueda.replace(" ", "%20")}&page={_temp}')
         products = soup.findAll('div', class_="item")
-        if products[0] == soup_def(f'https://www.venex.com.ar/resultado-busqueda.htm?keywords={busqueda.replace(" ", "%20")}&page={_temp-1}').findAll('div',class_='item')[0] and _temp != 1:
-            _search = False
+        try:
+            if products[0] == soup_def(f'https://www.venex.com.ar/resultado-busqueda.htm?keywords={busqueda.replace(" ", "%20")}&page={_temp-1}').findAll('div',class_='item')[0] and _temp != 1:
+                _search = False
+        except IndexError:
+            return 'No se encontraron resultados'
         for prod in products:
             if 'item item-no-stock' in str(prod):
                 _search = False
@@ -49,6 +53,8 @@ def searcherFullHard(busqueda: str):
     print('Cargando resultados de Full Hard..')
     soup = soup_def(f'https://www.fullh4rd.com.ar/cat/search/{busqueda.replace(" ", "%20")}')
     products = soup.findAll('div', class_='item product-list')
+    if soup.findAll('div',class_='products')[0].find('h2'):
+        return 'No se encontraron resultados'
     for prod in products:
         productDB = Product(
                         page = 'Full Hard',
