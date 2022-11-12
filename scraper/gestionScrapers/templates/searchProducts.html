@@ -9,12 +9,34 @@
     {% bootstrap_css %}
     {% bootstrap_javascript %}
     {% bootstrap_messages %}
+    <style>
+        #contenedor{
+            position: relative;
+            display: inline-block;
+            text-align: center;
+        }
+         
+        #title{
+            position: absolute;
+            top: 5%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        </style>
     <title>Busqueda de productos</title>
 </head>
 
-<body class="d-block align-items-center justify-content-center bg-dark w-100 h-100 p-5">
-    <h1 class="text-info d-flex justify-content-center p-1">Busca el producto que quieras comparar</h1>
-    <form action="/busqueda_productos/" method="get" class="bg-secondary my-3 p-4 w-100 d-flex align-items-center justify-content-center">
+<body class="d-block align-items-center justify-content-center bg-dark w-100 h-100 p-2">
+    {% if primera_busqueda %}
+        <h1 class="text-info d-flex justify-content-center p-1">Busca el producto que quieras comparar</h1>
+    {% else %}
+    {% load static %}
+        <div id="contenedor" class="d-flex justify-content-center align-items-center ">
+            <h3 id="title"><strong>{{query | capfirst}}</strong></h3>
+            <img class="rounded" width="700" height="300" title='Graficos de precios clasificados por paginas' src="{% static 'static/grafico.png' %}" alt="My image">
+        </div>
+    {% endif %}
+    <form action="/busqueda_productos/" method="get" class="bg-secondary my-2 p-1 w-100 d-flex align-items-center justify-content-center">
         <input type="text" name="prd" placeholder="Articulo..." style="width: 40%;" class="p-3 h-25 border border-primary border-opacity-50 rounded">
         <div  class="d-flex px-2 mx-2 align-items-center justify-content-between rounded" style="width: 40%;">
         <input type="submit" name="btn" value="Buscar" class="bg-dark text-primary p-2 m-3 rounded">
@@ -28,13 +50,13 @@
         <div class='p-1 m-1 text-center'>
             <label class='fw-bolder'>PRECIO:</label>
             <div class="form-check d-block">
-                <input class="form-check-input" type="radio" name="pricer" value="asc" checked>
+                <input class="form-check-input" type="radio" name="pricer" value="asc" >
                 <label class="form-check-label">
                 Ascendente
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="pricer" value="desc">
+                <input class="form-check-input" type="radio" name="pricer" value="desc" checked>
                 <label class="form-check-label">
                 Descendente
                 </label>

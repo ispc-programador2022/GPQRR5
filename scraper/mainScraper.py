@@ -78,8 +78,7 @@ def searcherMexx(busqueda: str):
                             title = prod.h4.get_text().replace('\n',''), 
                             price = int(prod.b.get_text().replace('$','').replace('.','')),
                             link = prod.a['href'])
-        except Exception as e:
-            print('soy la excepción',e)
+        except:
             continue
         if Product.objects.filter(title__contains=productDB.title).exists() and productDB.price == Product.objects.filter(title__contains=productDB.title)[0].price:
             continue
@@ -93,19 +92,27 @@ def searcherMeli(busqueda: str):
     print('Cargando  resultados de Mercado Libre..')
     soup = soup_def(f"https://listado.mercadolibre.com.ar/{busqueda.replace(' ','-')}#D[A:{busqueda.replace(' ','%20')}]")
     products = soup.findAll('div', class_='ui-search-result__wrapper shops__result-wrapper')
-    for prod in products:
-        try:
-            productDB = Product(
-                            page = 'Mercado Libre',
-                            title = prod.find('h2').get_text().lower(),
-                            price = int(prod.find('span',class_='price-tag-fraction').get_text().replace('.','')),
-                            link = prod.a['href'])
-        except:
-            continue
-        if Product.objects.filter(title__contains=productDB.title).exists():
-            break
-        else:
-            productDB.save()
+    for loop in range(1,4):
+        if loop > 1:
+            next_page = soup.find('a',{'title':'Siguiente'})['href']
+            soup = soup_def(next_page)
+            products = soup.findAll('div', class_='ui-search-result__wrapper shops__result-wrapper')
+        for prod in products:
+            try:
+                productDB = Product(
+                                page = 'Mercado Libre',
+                                title = prod.find('h2').get_text().lower(),
+                                price = int(prod.find('span',class_='price-tag-fraction').get_text().replace('.','')),
+                                link = prod.a['href'])
+            except:
+                continue
+            if Product.objects.filter(title__contains=productDB.title).exists() and productDB.price == Product.objects.filter(title__contains=productDB.title)[0].price:
+                continue
+            elif Product.objects.filter(title__contains=productDB.title).exists() and productDB.price != Product.objects.filter(title__contains=productDB.title)[0].price:
+                update_id = Product.objects.filter(title__contains = productDB.title)[0].id
+                Product.objects.filter(pk = update_id).update(price = productDB.price)
+            else:
+                productDB.save()
 
 if __name__ == '__main__':
     items = ['microprocesador','placa de video','notebook','teclado']

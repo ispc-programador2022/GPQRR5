@@ -1,17 +1,18 @@
 {% extends "searchProducts.html" %}
+
 {% block content %}
 {%if articulos%}
 <div class="bg-light d-flex w-100 justify-content-between">
     {%for key, value in paginas.items%}
-        <div class = "bg-primary m-2 p-2">
-            <h3 class = "text-center"><strong>{{key}}</strong></h3>
+        <div class = "bg-primary m-1 p-1">
+            <h4 class = "text-center text-light"><strong>{{key}}</strong></h4>
             {%if value.rangos.1.price == value.rangos.0.price%}
-                <p>Precio unico: ${{value.rangos.0.price}}</p>
+                <p class = 'text-light'>Precio unico: ${{value.rangos.0.price}}</p>
             {%else%}
-                <p>Precio Minimo: ${{value.rangos.1.price}}</p>
-                <p>Precio Maximo: ${{value.rangos.0.price}}</p>
+                <p class = 'text-light'>Precio Minimo: ${{value.rangos.1.price}}</p>
+                <p class = 'text-light'>Precio Maximo: ${{value.rangos.0.price}}</p>
             {%endif%}
-            <h6>Varianza: ${{value.varianza}}</h6>
+            <h6 class = 'text-light text-center'>Varianza: ${{value.varianza}}</h6>
         </div>
     {%endfor%}
 </div>
@@ -42,12 +43,11 @@
     {%endfor%}
 </table>
 {%else%}
-    {%if primera_busqueda %}
+    {%if primera_busqueda%}
     <h4 class="text-light">Realiza tu primera busqueda</h4>
     {%else%}
     <h2 class="text-light">Estas buscando: <strong>{{query}}</strong></h2>
     <h4 class="text-light">No se encontraron articulos en la seccion seleccionada. Pruebe con otra</h4>
     {%endif%}
 {%endif%}
-
 {% endblock %}
