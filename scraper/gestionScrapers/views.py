@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from gestionScrapers.models import Product
+import numpy as np
 
 # Create your views here.
 
@@ -10,8 +11,10 @@ def searchProducts(request):
             select = request.GET['select']
             price = request.GET['pricer']
             pages = {
-                'full_hard':{'rangos':[],'productos':[]},
-                'venex':{'rangos':[],'productos':[]}}    
+                'Full Hard':{'rangos':[],'productos':[],'precios':[]},
+                'Venex':{'rangos':[],'productos':[],'precios':[]},
+                'Mexx':{'rangos':[],'productos':[],'precios':[]},
+                'Mercado Libre':{'rangos':[],'productos':[],'precios':[]}}    
             if len(producto) > 30:
                 return render(request, "Texto demasiado largo")
             else:
@@ -22,28 +25,33 @@ def searchProducts(request):
 
                 if select == 'page':
                     articulos = articulos.filter(page__icontains=producto)
-                    pages = {f'{producto}':{'rangos':[],'productos':[]}}
+                    pages = {f'{producto}':{'rangos':[],'productos':[],'precios':[]}}
                 elif select == 'title':
                     for prod in producto.split(' '):
                         articulos = articulos.filter(title__icontains=prod)
-                elif select == 'brand':
-                    articulos = articulos.filter(brand__icontains=producto)
 
                 for page in pages.keys():
-                    pages[page]['productos'].append(articulos.filter(page__icontains = page.replace('_',' ')))
+                    pages[page]['productos'].append(articulos.filter(page__icontains = page))
+                    for prod in pages[page]['productos'][0]:
+                        pages[page]['precios'].append(prod.price)
+
+                for page in pages.keys():
+                    pages[page]['varianza'] = round(np.var(pages[page]['precios'])**0.5)
 
                 for page in pages.keys():
                     if price == 'asc':
                         pages[page]['rangos'].append(pages[page]['productos'][0][0])
                         pages[page]['rangos'].append(pages[page]['productos'][0].reverse()[0])
-                    else:
+                    elif price == 'desc':
                         pages[page]['rangos'].append(pages[page]['productos'][0].reverse()[0])
                         pages[page]['rangos'].append(pages[page]['productos'][0][0])
+                    else:
+                        continue
 
                 return render(request, 'resultSearch.html', {'articulos': articulos, 'query': producto,'paginas':pages})
         else:
             return render(request, '404.html')
-    except:
+    except Exception as e:
         return render(request, "resultSearch.html", {'primera_busqueda': True})
 
 
