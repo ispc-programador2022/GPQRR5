@@ -55,5 +55,5 @@ def ploter(pages):
         plt.close()
 
 if __name__ == '__main__':
-    pages={'Venex':{'precios':[1,2,3,4]}}
-    ploter(pages)
+    bbdd_to_excel()
+

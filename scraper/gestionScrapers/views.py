@@ -60,12 +60,12 @@ def searchProducts(request):
 
 def pruebas_script(request):
     if request.method == 'POST' and 'run_script' in request.POST:
-        from mainScraper import searcherCompGamer, searcherFullHard, searcherMeli, searcherVenex
+        from mainScraper import searcherMexx, searcherFullHard, searcherMeli, searcherVenex
         items = request.POST['prd']
         venex = searcherVenex(items)
         full_hard = searcherFullHard(items)
-        #searcherCompGamer(items)
-        #searcherMeli(items)
+        searcherMexx(items)
+        searcherMeli(items)
         return render(request, 'gracias.html',{'venex':venex,'full_hard':full_hard})
     else:
         return render(request, 'pruebas.html')

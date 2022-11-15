@@ -135,7 +135,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    '/home/agustin/Desktop/Proyectos_linux/ispc/web_scraper/scraper/gestionScrapers/templates'
+    f'{BASE_DIR}/gestionScrapers/templates'
     ]
 
 # Default primary key field type
