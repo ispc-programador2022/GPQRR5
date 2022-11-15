@@ -10,8 +10,19 @@
     {% bootstrap_messages %}
     <title>Busqueda de productos</title>
 </head>
-<body class="d-flex align-items-center justify-content-center bg-dark w-100 h-100 p-5">
+<body class="bg-dark w-100 h-100 p-5">
     <h1 class="text-light">Gracias por utilizar nuestro web scraper.</h1>
-    <p>{{price}}</p>
+    {%if venex and full_hard%}
+        <p class="text-light">{{venex}} en Venex.</p>
+        <p class="text-light">{{venex}} en Full Hard.</p>
+    {%elif venex%}
+        <p class="text-light">{{venex}} en Venex.</p>
+    {%elif full_hard%}
+        <p class="text-light">{{full_hard}} en Full Hard.</p>
+    {%else%}
+        <p class="text-light">los productos han sido agregados exitosamente en nuestra base de datos, los encontrará disponibles en su proxima busqueda</p>
+    {%endif%}
+    <a href="/busqueda_productos/"> <button  class="text-primary px-4 mx-4 my-2 rounded">Buscar</button></a>
+    <a href="/pruebas_script/"> <button  class="text-primary px-4 mx-4 my-2 rounded">Scripts</button></a>
 </body>
 </html>

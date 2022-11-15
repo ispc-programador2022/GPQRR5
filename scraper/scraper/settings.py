@@ -67,7 +67,7 @@ ROOT_URLCONF = 'scraper.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['/home/agustin/Desktop/Proyectos_linux/ispc/web_scraper/scraper/gestionScrapers/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -91,7 +91,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'scraper_database',
         'USER': 'root',
-        'PASSWORD':'Password',
+        'PASSWORD':'password',
         'HOST': 'localhost',
         'PORT': ''
     }
@@ -134,6 +134,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    f'{BASE_DIR}/gestionScrapers/templates'
+    ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
