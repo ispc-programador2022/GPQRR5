@@ -82,6 +82,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'scraper.wsgi.application'
 
+#Se Puede trabaja en Database local
+# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+
+
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': os.path.join(BASE_DIR, 'yourdatabasename.db'),
+#    }
+#}
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
