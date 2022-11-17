@@ -1,27 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resultados busqueda</title>
-</head>
-<body>
-    
-    <p>Estas buscando: <strong>{{query}}</strong></p>
+{% extends "searchProducts.html" %}
 
-    {%if articulos%}
-        <p>Articulos encontrados: {{articulos|length}} articulos</p>
-        <ul>
-            {%for articulo in articulos%}
-                <li>
-                    {{articulo.name}}  &nbsp; ${{articulo.price}}
-                </li>
-            {%endfor%}
-        </ul>
+{% block content %}
+{%if articulos%}
+<div class="bg-light d-flex w-100 justify-content-between">
+    {%for key, value in paginas.items%}
+        <div class = "bg-primary m-1 p-1">
+            <h4 class = "text-center text-light"><strong>{{key}}</strong></h4>
+            {%if value.rangos.1.price == value.rangos.0.price%}
+                <p class = 'text-light'>Precio unico: ${{value.rangos.0.price}}</p>
+            {%else%}
+                <p class = 'text-light'>Precio Minimo: ${{value.rangos.1.price}}</p>
+                <p class = 'text-light'>Precio Maximo: ${{value.rangos.0.price}}</p>
+            {%endif%}
+            <h6 class = 'text-light text-center'>Varianza: ${{value.varianza}}</h6>
+        </div>
+    {%endfor%}
+</div>
+<h2 class="text-light">Estas buscando: <strong>{{query | capfirst}}</strong></h2>
+<h4 class="text-light">Articulos encontrados: {{articulos|length}} articulos</h4>
+<table class="table table-primary table-striped">
+    <thead>
+        <tr>
+            <th class="text-center">Pagina</th>
+            <th>Articulo</th>
+            <th class="text-center">Precio</th>
+            <th class="text-center">Link</th>
+        </tr>
+    </thead>
+    {%for articulo in articulos%}
+    <tbody>
+        <tr>
+            <td class="text-center">{{articulo.page}}</td>
+            <td class="mx-2 bg-warning">{{articulo.title | capfirst}}</td>
+            <td class="text-center">${{articulo.price}}</td>
+            <td class="text-center">
+                <a target="_blank" href={{articulo.link}}>
+                    <button class="bg-dark text-primary px-4 rounded"> Ir </button>
+                </a>
+            </td>
+        </tr>
+    </tbody>
+    {%endfor%}
+</table>
+{%else%}
+    {%if primera_busqueda%}
+    <h4 class="text-light">Realiza tu primera busqueda</h4>
     {%else%}
-           <p>Articulo no encontrado</p>
+    <h2 class="text-light">Estas buscando: <strong>{{query}}</strong></h2>
+    <h4 class="text-light">No se encontraron articulos en la seccion seleccionada. Pruebe con otra</h4>
     {%endif%}
-
-</body>
-</html>
+{%endif%}
+{% endblock %}
